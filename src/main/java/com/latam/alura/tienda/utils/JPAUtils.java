@@ -10,6 +10,7 @@ public class JPAUtils {
 	
 	public static EntityManager getEntityManager() {
 		try {
+			System.out.println("Conexion EntityManager OK");
 			return FACTORY.createEntityManager();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

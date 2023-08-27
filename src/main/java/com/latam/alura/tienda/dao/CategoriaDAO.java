@@ -11,6 +11,11 @@ public class CategoriaDAO {
 		this.em = em;
 	}
 	public void guardar(Categoria categoria) {
+		System.out.println("Categoria "+categoria);
 		this.em.persist(categoria);
+	}
+	
+	public void actualizar(Categoria categoria) {
+		this.em.merge(categoria);
 	}
 }	
