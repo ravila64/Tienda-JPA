@@ -29,7 +29,7 @@ public class RegistroDeProducto {
 		em.clear();
 		celulares = em.merge(celulares);
 		celulares.setNombre("SOFTWARE");
-		em.flush();   // sincronizar
+		em.flush();   // sincronizar, hasta aqui estaba managed o gerenciado
 		// eliminar registro
 		em.remove(celulares);
 		em.flush();
