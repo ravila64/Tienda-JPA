@@ -60,5 +60,11 @@ public class Producto {
 	public void setPrecio(BigDecimal precio) {
 		this.precio = precio;
 	}
+
+	@Override
+	public String toString() {
+		return "Producto [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", precio=" + precio
+				+ ", fechaDeRegistro=" + fechaDeRegistro + ", categoria=" + categoria + "]";
+	}
 	
 }
