@@ -35,12 +35,28 @@ public class RegistroDeProducto {
 		List<Producto> listaProdxNombre = productoDAO.consultarPorNombre("Xiaomi Redmi"); 
 		listaProdxNombre.forEach(prod->System.out.println(prod.getNombre()+" "+prod.getDescripcion()));
 		
+		// consultar por nombre de categoria
+		System.out.println("lista productos x Categoria:"+"[TV]");
+		List<Producto> listaProdxNombreCat = productoDAO.consultarPorNombreDeCategoria("TV"); 
+		listaProdxNombreCat.forEach(prod->System.out.println(prod.getNombre()+" "+prod.getDescripcion()));
+		
+		// consultar por fecha, queda pendiente la conversion de String a Date
+//		System.out.println("lista productos x fecha:");
+//		List<Producto> listaXFechas = productoDAO.consultarPorFechas("2023-08-28"); 
+//		listaProdxNombreCat.forEach(prod->System.out.println(prod.getNombre()+" "+prod.getDescripcion()));
+		
+		// consulta x nombre de producto
+		System.out.println("Consulta precio x nombre de producto: "+"[TV samsung 50p]");
+		BigDecimal precio = productoDAO.consultarPrecioPorNombreProducto("TV samsung 50p");
+		System.out.println("Precio del producto : "+precio);
 	}
 
 	private static void registrarProducto() {
 		Categoria celulares = new Categoria("CELULARES");
 		Producto celular = new Producto("Xiaomi Redmi","Producto usado",new BigDecimal("1000"), celulares);
-				
+		Categoria televisores = new Categoria("TV");
+		Producto tv = new Producto("TV samsung 50p","Producto new",new BigDecimal("1500"), televisores);
+		
 		EntityManager em = JPAUtils.getEntityManager();
 		ProductoDAO productoDAO = new ProductoDAO(em);
 		CategoriaDAO categoriaDAO = new CategoriaDAO(em);
@@ -49,8 +65,12 @@ public class RegistroDeProducto {
 		
 		categoriaDAO.guardar(celulares);
 		productoDAO.guardar(celular); // em.persist(celular);
+		
+		categoriaDAO.guardar(televisores);
+		productoDAO.guardar(tv); // em.persist(celular);
 			
-		em.getTransaction().commit(); 
+		em.getTransaction().commit();
+		
 		em.close();
 	}
 }

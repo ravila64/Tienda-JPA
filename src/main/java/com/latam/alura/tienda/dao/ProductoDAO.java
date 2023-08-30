@@ -1,5 +1,7 @@
 package com.latam.alura.tienda.dao;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -27,10 +29,28 @@ public class ProductoDAO {
 		return em.createQuery(jpql,Producto.class).getResultList();
 	}
 	
-	public List<Producto> consultarPorNombre(String nombreConsultar){
-		String jpql = "SELECT P FROM Producto AS P WHERE P.nombre=:nombreConsultar";
-		List<Producto> resultList = em.createQuery(jpql).setParameter("nombreConsultar", jpql).getResultList();
+	public List<Producto> consultarPorNombre(String nombre){
+		String jpql = "SELECT P FROM Producto P WHERE P.nombre=:nombre";
+		List<Producto> resultList = em.createQuery(jpql,Producto.class).setParameter("nombre", nombre).getResultList();
 		return resultList;
 	}
 	
+	public List<Producto> consultarPorNombreDeCategoria(String nombre){
+		String jpql = "SELECT P FROM Producto P WHERE P.categoria.nombre=:nombre";
+		List<Producto> resultList = em.createQuery(jpql,Producto.class).setParameter("nombre", nombre).getResultList();
+		return resultList;
+	}
+	
+	public List<Producto> consultarPorFechas(String fecha){
+		// hay que hacer conversion de string a Date
+		String jpql = "SELECT P FROM Producto P WHERE P.fechaDeRegistro=:fecha";
+		List<Producto> resultList = em.createQuery(jpql,Producto.class).setParameter("fechaDeRegistro", fecha).getResultList();
+		return resultList;
+	}
+	
+	public BigDecimal consultarPrecioPorNombreProducto(String nombre){
+		String jpql = "SELECT P.precio FROM Producto AS P WHERE P.nombre=:nombre";
+		BigDecimal result = em.createQuery(jpql,BigDecimal.class).setParameter("nombre", nombre).getSingleResult();
+		return result;
+	}
 }	
